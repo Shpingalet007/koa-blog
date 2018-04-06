@@ -1,0 +1,38 @@
+{
+  "name": "koa-blog",
+  "version": "1.0.0",
+  "description": "Blog powered by Koa framework",
+  "main": "compiled/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shpingalet007/koa-blog.git"
+  },
+  "author": "Shpingalet007",
+  "dependencies": {
+    "koa": "^2.5.0",
+    "koa-body": "^2.5.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-router": "^7.4.0",
+    "koa2-validator": "^1.1.0",
+    "nconf": "^0.10.0",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.4",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "webpack": "^4.5.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  }
+}
