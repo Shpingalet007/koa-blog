@@ -1,13 +1,13 @@
 import Koa from 'koa';
 import KoaBodyParser from 'koa-bodyparser';
-import KoaValidator from 'koa2-validator';
+import bouncer from 'koa-bouncer';
 
 const app = new Koa();
 
 app.use(KoaBodyParser());
-app.use(KoaValidator());
+app.use(bouncer.middleware());
 
-import {routes, allowedMethods} from './middleware/routes.js';
+import {routes, allowedMethods} from './middleware/router';
 
 app.use(routes());
 app.use(allowedMethods());
