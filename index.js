@@ -1,8 +1,10 @@
-global._ = require('underscore');
-const nconf = require('nconf');
-nconf.argv()
-    .env()
-    .file({ file: './config/config.json' });
+//const gulp = require('gulp');
+const runGulpTask = require('run-gulp-task');
 
-_.conf = nconf;
-require('./lib/index.js');
+function startServer() { require('./lib/koa-init.js') }
+
+runGulpTask('build', 'gulpfile.js')
+    .then(startServer)
+    .catch(e => {
+        console.log('Project build error: ', e);
+    });

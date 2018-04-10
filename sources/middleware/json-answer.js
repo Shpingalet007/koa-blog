@@ -1,4 +1,5 @@
-function _generateJSON(code, text, data) {
+function _generateJSON(code, text) {
+    let data = arguments[2];
     if(!code || !text) return false;
 
     var json = {
@@ -12,18 +13,20 @@ function _generateJSON(code, text, data) {
 }
 
 class BodyAnswer {
-    error(code, text) {
+    error(ctx, code, text, data) {
         if(!code) code = 500;
         if(!text) text = this.ERROR_STRING;
 
-        return _generateJSON(code, text, data);
+        ctx.status = code;
+        ctx.body = _generateJSON(code, text, data);
     }
 
-    success(data, code, text) {
+    success(ctx, data, code, text) {
         if(!code) code = 200;
         if(!text) text = this.SUCCESS_STRING;
 
-        return _generateJSON(code, text, data);
+        ctx.status = code;
+        ctx.body = _generateJSON(code, text, data);
     }
 }
 

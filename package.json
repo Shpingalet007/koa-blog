@@ -9,6 +9,7 @@
   },
   "author": "Shpingalet007",
   "dependencies": {
+    "crc-32": "^1.2.0",
     "koa": "^2.5.0",
     "koa-bodyparser": "^4.2.0",
     "koa-bouncer": "^6.0.4",
@@ -17,8 +18,7 @@
     "koa-static": "^4.0.2",
     "koa2-validator": "^1.1.0",
     "mongoose": "^5.0.13",
-    "nconf": "^0.10.0",
-    "npm": "^5.8.0"
+    "nconf": "^0.10.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -31,6 +31,7 @@
     "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",
+    "run-gulp-task": "^0.2.0",
     "webpack": "^4.5.0"
   },
   "babel": {

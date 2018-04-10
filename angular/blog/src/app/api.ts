@@ -1,0 +1,5 @@
+class HttpAPI {
+  getArticles() {
+
+  }
+}
