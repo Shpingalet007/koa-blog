@@ -2,6 +2,7 @@ import Koa from 'koa';
 import nconf from 'nconf';
 import KoaBodyParser from 'koa-bodyparser';
 import bouncer from 'koa-bouncer';
+import cors from 'koa2-cors';
 import jsonAnswer from './middleware/json-answer';
 
 // Config file capture
@@ -11,6 +12,13 @@ const app = new Koa();
 
 app.use(KoaBodyParser());
 app.use(bouncer.middleware());
+
+// Setting CORS
+app.use(cors({
+    origin: '*',
+    allowMethods: ['*'],
+}));
+
 
 import {routes, allowedMethods} from './middleware/router';
 

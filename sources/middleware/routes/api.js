@@ -5,6 +5,18 @@ import db from '../../middleware/mongoose';
 
 function APIRoutes(router) {
     return router
+        .get('/api/categories/list', async (ctx, next) => {
+            let data = await db.Category.find({},{
+                urlTitle: 1,
+                title: 1,
+                _id: 0
+            }).exec();
+
+            if(data) jsonAnswer.success(ctx, data);
+            else jsonAnswer.error(ctx);
+
+            console.log('Request');
+        })
         .get('/api/articles/:category*/list', async (ctx, next) => {
             //Validating input data
             ctx.validateParam('category')
@@ -14,16 +26,34 @@ function APIRoutes(router) {
                 .optional()
                 .toInt('Limit is not integer');
 
-            let data = await db.Article.find({ parentId: ctx.params.category, active: true }, {
+            let query = { active: true };
+
+            if(ctx.params.category) {
+                let ref = await db.Category.findOne({urlTitle: ctx.params.category}, {
+                    _id: 0,
+                    shortId: 1
+                }).exec();
+
+                query.parentId = ref.shortId;
+            }
+
+            let data = await db.Article.find(query, {
                 _id: 0,
+                shortId: 1,
                 title: 1,
                 text: 1,
                 date: 1,
                 author: 1
             }).exec();
 
+            data.forEach(article => {
+                article.date = new Date(article.date);
+            });
+
             if(data) jsonAnswer.success(ctx, data);
             else jsonAnswer.error(ctx);
+
+            console.log('Request');
         })
         .get('/api/article/:id', async (ctx, next) => {
             //Validating input data
@@ -32,6 +62,19 @@ function APIRoutes(router) {
                 .isString('Invalid article ID');
 
             let data = await db.Article.findOne({ shortId: ctx.params.id }).exec();
+
+            if(data) jsonAnswer.success(ctx, data);
+            else jsonAnswer.error(ctx);
+        })
+        .get('/api/article/:id/comments', async (ctx, next) => {
+            let query = { articleId: ctx.params.id, active: true };
+
+            let data = await db.Comment.find(query, {
+                text: 1,
+                author: 1,
+                date: 1,
+                _id: 0
+            }).exec();
 
             if(data) jsonAnswer.success(ctx, data);
             else jsonAnswer.error(ctx);
@@ -147,7 +190,10 @@ function APIRoutes(router) {
                 title: ctx.request.body.name
             });
             category.generateId();
-            category.save();
+            let check = category.save();
+
+            if(check) jsonAnswer.success(ctx);
+            else jsonAnswer.error(ctx);
         });
 }
 

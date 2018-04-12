@@ -55,6 +55,10 @@ const CommentSchema = new Schema({
         type: String,
         unique: true
     },
+    date: {
+        type: Date,
+        default: Date.now
+    },
     text: String,
     author: String,
     articleId: String,
